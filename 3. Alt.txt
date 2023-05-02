@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <string.h>
+
+char* keywords[] = {"auto","break","case","char","const","continue","default","do","double","else","enum","extern","float","for","goto","if","int","long","register","return","short","signed","sizeof","static","struct","switch","typedef","union","unsigned","void","volatile","while"};
+char* operators[] = {"+", "-", "*", "/", "=", "++", "--"};
+char* brackets[] = {"{", "}", "(", ")"};
+char* comp_op[] = {"==", ">", "<", "<=", ">=", "!="};
+char* delimiters[]= {";", ",", ":", ".", "->", "(", ")", "[", "]", "{", "}"};
+char* io[]= {"printf", "scanf"};
+
+int isKeyword(char* s, char* x[], int n) {
+    int i;
+    for(i=0; i<n; i++) {
+        if(strcmp(s, x[i])==0)
+            return 1;
+    }
+    return 0;
+}
+
+int isString(char* s) {
+    if(s[0]=='\"' && s[strlen(s)-1]=='\"')
+        return 1;
+    return 0;
+}
+
+int isConstant(char* s) {
+    if(s[0]>='0' && s[0]<='9')
+        return 1;
+    return 0;
+}
+
+int main() {
+    char s[1000];
+    printf("Enter a C program:\n");
+    fgets(s, 1000, stdin);
+    char *p = strtok(s, " \n\t");
+    while(p!=NULL) {
+        if(isKeyword(p, keywords, 32))
+            printf("%s is a keyword.\n", p);
+        else if(isKeyword(p, operators, 7))
+            printf("%s is an operator.\n", p);
+        else if(isKeyword(p, delimiters, 11))
+            printf("%s is a delimiter.\n", p);
+        else if(isKeyword(p, brackets, 4))
+            printf("%s is a bracket.\n", p);
+        else if(isKeyword(p, comp_op, 6))
+            printf("%s is a comparison operator.\n", p);
+        else if(isKeyword(p, io, 2))
+            printf("%s is an I/O function.\n", p);
+        else if(isString(p))
+            printf("%s is a string.\n", p);
+        else if(isConstant(p))
+            printf("%s is a constant.\n", p);
+        else
+            printf("%s is an identifier.\n", p);
+        p = strtok(NULL, " \n\t");
+    }
+    return 0;
+}

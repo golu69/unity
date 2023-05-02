@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+int main() {
+    char input[100];
+    printf("Enter an expression: ");
+    fgets(input, 100, stdin);
+
+    char *equal_sign = strchr(input, '=');
+    if (equal_sign == NULL) {
+        printf("Invalid input\n");
+        return 0;
+    }
+
+    char variable_name[100];
+    int length = equal_sign - input;
+    strncpy(variable_name, input, length);
+    variable_name[length] = '\0';
+
+    char *value = equal_sign + 1;
+    length = strlen(value);
+
+    if (length == 1 && isdigit(value[0]) || isdigit(value[0]))
+        printf("%s is an int\n", variable_name);
+
+    else if (strchr(value, '.') != NULL) {
+        printf("%s is a float\n", variable_name);
+    }
+
+    else if (length >= 2 && value[0] == '\'' && value[length-2] == '\'' && isalpha(value[1])) {
+        printf("%s is a char\n", variable_name);
+    }
+
+    else if (length >= 2 && value[0] == '"' && value[length-2] == '"') {
+        printf("%s is a string\n", variable_name);
+    }
+
+    else {
+        printf("Invalid input\n");
+    }
+
+    return 0;
+}

@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char expr[100];
+    int i, op_count = 0, valid_op_count = 0;
+    printf("Enter the arithmetic expression: ");
+    fgets(expr, 100, stdin);
+
+    printf("Operators:\n");
+    for (i = 0; expr[i] != '\0'; i++) {
+        if (expr[i] == '+' || expr[i] == '-' || expr[i] == '*' || expr[i] == '/') {
+            printf("%c is valid.\n", expr[i]);
+            op_count++;
+            valid_op_count++;
+        }
+        else if (!isspace(expr[i]) && !isdigit(expr[i])) {
+            printf("%c is not valid.\n", expr[i]);
+            op_count++;
+        }
+    }
+
+    if (op_count == 0) {
+        printf("No operators found.\n");
+    }
+    // else if (valid_op_count == op_count) {
+    //     printf("%d operators found and all are valid.\n", op_count);
+    // }
+    // else {
+    //     printf("%d operators found and %d are valid.\n", op_count, valid_op_count);
+    // }
+
+    return 0;
+}

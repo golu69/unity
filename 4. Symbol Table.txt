@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<stdlib.h>
+#include<string.h>
+#include<math.h>
+
+int main()
+{
+    int i=0,j=0,x=0,n;
+    void *p,*add[5];
+    char ch,srch,b[15],d[15],c;
+    
+    printf("Expression terminated by $:");
+    while((c=getchar())!='$')
+    {
+        b[i]=c;
+        i++;
+    }
+    n=i-1;
+    printf("Given Expression:");
+    i=0;
+    while(i<=n)
+    {
+        printf("%c",b[i]);
+        i++;
+    }
+    
+    printf("\n Symbol Table\n");
+    printf("Symbol \t value \t type");
+    while(j<=n)
+    {
+        c=b[j];
+        if(isalpha(toascii(c)))
+        {
+            p=malloc(sizeof(int)); // Allocate memory for an integer
+            *(int*)p = 0; // Initialize the integer to 0
+            add[x]=p;
+            d[x]=c;
+            printf("\n%c \t \t %d \t \t identifier\n",c,*(int*)p); // Print the integer value stored at the address in p
+            x++;
+            j++;
+        }
+        else
+        {
+            ch=c;
+            if(ch=='+'||ch=='-'||ch=='*'||ch=='=')
+            {
+                p=malloc(sizeof(char)); // Allocate memory for a character
+                *(char*)p = ch; // Initialize the character to the operator
+                add[x]=p;
+                d[x]=ch;
+                printf("\n %c \t \t %c \t \t operator\n",ch,*(char*)p); // Print the character value stored at the address in p
+                x++;
+                j++;
+            }
+        }
+    }
+    return 0;
+}
